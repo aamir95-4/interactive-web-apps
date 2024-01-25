@@ -4,7 +4,7 @@ const holidays = {
   0: {
     id: 0,
     name: "Day of Reconciliation",
-    date: `16 December ${currentYear}`,
+    date: new Date(`16 December ${currentYear}`),
   },
   1: {
     id: 1,
@@ -61,7 +61,6 @@ console.log(
 
 copied = holidays[6];
 copied.name = "X-mas Day";
-correctDate = copied.date;
 correctDate = new Date(`25 December ${currentYear} 00:00`);
 isEarlier = correctDate < holidays[6].date;
 console.log("New date is earlier:", isEarlier);
@@ -76,47 +75,43 @@ console.log(
   " " +
     holidays[6].date.getDate() +
     " / " +
-    holidays[6].date.getMonth() +
+    [holidays[6].date.getMonth() + 1] +
     " / " +
     holidays[6].date.getFullYear() +
     ""
 );
 
-const firstHolidayTimestamp = Math.min(
-  holidays[0].date.getTime,
-  holidays[1].date.getTime,
-  holidays[2].date.getTime,
-  holidays[3].date.getTime,
-  holidays[4].date.getTime,
-  holidays[5].date.getTime,
-  holidays[6].date.getTime,
-  holidays[7].date.getTime,
-  holidays[8].date.getTime
-);
+const arrOfDates = [
+  holidays[0].date,
+  holidays[1].date,
+  holidays[2].date,
+  holidays[3].date,
+  holidays[4].date,
+  holidays[5].date,
+  holidays[6].date,
+  holidays[7].date,
+  holidays[8].date,
+];
 
-const lastHolidayTimestamp = Math.max(
-  holidays[0].date.getTime,
-  holidays[1].date.getTime,
-  holidays[2].date.getTime,
-  holidays[3].date.getTime,
-  holidays[4].date.getTime,
-  holidays[5].date.getTime,
-  holidays[6].date.getTime,
-  holidays[7].date.getTime,
-  holidays[8].date.getTime
-);
+console.log(arrOfDates);
 
-const firstDay = firstHolidayTimestamp.getDate;
-const firstMonth = firstHolidayTimestamp.getMonth;
-const lastDay = lastHolidayTimestamp.getDate;
-const lastMonth = lastHolidayTimestamp.getMonth;
+const firstHoliday = new Date(Math.min(...arrOfDates));
+const lastHoliday = new Date(Math.max(...arrOfDates));
 
-console.log("{firstDay}/{firstMonth}/{currentYear}");
-console.log("{lastDay}/{lastMonth}/{currentYear}");
+console.log(firstHoliday.toLocaleDateString());
 
-const randomHoliday = holidays[Math.random];
-console.log(randomHoliday.date);
+console.log(lastHoliday.toLocaleDateString());
+
+const random = parseInt(Math.random() * 9);
+const randomHoliday = arrOfDates[random];
+
+console.log(randomHoliday.toLocaleDateString());
 
 /* 1. Changed console.log(holidays.futureId.name || 'ID {futureId} not created yet') to an if statement
-|* 2. 
+|* 2. set correct date to new date with new time, alternatively could have used .setHours and .setMinutes
+|*    I couldn't figure out how to use .setHours and .setMinutes
+|* 3. Changed the first and last holiday calculations to have one array of the dates and select the min
+|*    and max from that array. Found and used .toLocaleDateString to return correct date format.
+|* 4. After some research, found that math.random only gives a number between 0 and 1
+|*    so I used parseInt to make sure it is a round number and multiplied by 9 to get a number between 0 and 8.
 */
