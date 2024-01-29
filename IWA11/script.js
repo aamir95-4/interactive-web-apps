@@ -42,3 +42,9 @@ document.querySelector('[data-key="order3"] > .pancakes > .count').innerText =
   pancakesThree;
 document.querySelector('[data-key="order3"] > .status > dd').innerText =
   statusThree === "true" ? "Delivered" : "Pending";
+
+/* I didn't understand the format of the initial java code
+  |* so I changed the format based on what we learned in IWA1 and IWA3 challenge 1
+  |* therefore, I made the const's = the correct values without changing the html
+  |* then used .innertext to fill in the const value into the correct place in the html
+   */
