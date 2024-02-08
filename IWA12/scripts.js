@@ -32,95 +32,20 @@ let reserve = document.querySelectorAll(".reserve");
 let checkOut = document.querySelectorAll(".checkout");
 let checkIn = document.querySelectorAll(".checkin");
 
-const reserveHandler1 = () => {
-  status_[0].innerText = "reserved";
-};
+checkIn[0].style.color = "black";
+status_[0].style.color = STATUS_MAP.overdue.color;
+reserve[0].disabled = STATUS_MAP.overdue.canReserve ? false : true;
+checkOut[0].disabled = STATUS_MAP.overdue.canCheckout ? false : true;
+checkIn[0].disabled = STATUS_MAP.overdue.canCheckIn ? false : true;
 
-const checkOutHandler1 = () => {
-  status_[0].innerText = "checked out";
-};
+checkIn[1].style.color = "black";
+status_[1].style.color = STATUS_MAP.reserved.color;
+reserve[1].disabled = STATUS_MAP.reserved.canReserve ? false : true;
+checkOut[1].disabled = STATUS_MAP.reserved.canCheckout ? false : true;
+checkIn[1].disabled = STATUS_MAP.reserved.canCheckIn ? false : true;
 
-const checkInHandler1 = () => {
-  status_[0].innerText = "shelf";
-};
-// set color of all checkIn button text to black
-for (let i = 0; i < checkIn.length; i++) {
-  checkIn[i].style.color = "black";
-}
-
-// set color of status to corresponding color in STATUS_MAP
-
-if (status_[0].innerText === "overdue") {
-  status_[0].style.color = STATUS_MAP.overdue.color;
-  reserve[0].disabled = true;
-  checkOut[0].disabled = true;
-  checkIn[0].disabled = false;
-}
-
-if (status_[0].innerText === "shelf") {
-  status_[0].style.color = STATUS_MAP.shelf.color;
-  reserve[0].disabled = false;
-  checkOut[0].disabled = false;
-  checkIn[0].disabled = true;
-}
-if (status_[0].innerText === "reserved") {
-  status_[0].style.color = STATUS_MAP.reserved.color;
-  reserve[0].disabled = true;
-  checkOut[0].disabled = false;
-  checkIn[0].disabled = true;
-}
-if (status_[0].innerText === "checked out") {
-  status_[0].style.color = STATUS_MAP.checkedOut.color;
-  reserve[0].disabled = true;
-  checkOut[0].disabled = true;
-  checkIn[0].disabled = false;
-}
-
-if (status_[1].innerText === "overdue") {
-  status_[1].style.color = STATUS_MAP.overdue.color;
-  reserve[1].disabled = true;
-  checkOut[1].disabled = true;
-  checkIn[1].disabled = false;
-} else if (status_[1].innerText === "shelf") {
-  status_[1].style.color = STATUS_MAP.shelf.color;
-  reserve[1].disabled = false;
-  checkOut[1].disabled = false;
-  checkIn[1].disabled = true;
-} else if (status_[1].innerText === "reserved") {
-  status_[1].style.color = STATUS_MAP.reserved.color;
-  reserve[1].disabled = true;
-  checkOut[1].disabled = false;
-  checkIn[1].disabled = true;
-} else if (status_[1].innerText === "checked out") {
-  status_[1].style.color = STATUS_MAP.checkedOut.color;
-  reserve[1].disabled = true;
-  checkOut[1].disabled = true;
-  checkIn[1].disabled = false;
-}
-
-if (status_[2].innerText === "overdue") {
-  status_[2].style.color = STATUS_MAP.overdue.color;
-} else if (status_[2].innerText === "shelf") {
-  status_[2].style.color = STATUS_MAP.shelf.color;
-} else if (status_[2].innerText === "reserved") {
-  status_[2].style.color = STATUS_MAP.reserved.color;
-} else if (status_[2].innerText === "checked out") {
-  status_[2].style.color = STATUS_MAP.checkedOut.color;
-}
-
-// enable/disable buttons
-
-reserve[0].addEventListener("click", reserveHandler1);
-checkOut[0].addEventListener("click", checkOutHandler1);
-checkIn[0].addEventListener("click", checkInHandler1);
-// reserve[0] = STATUS_MAP.shelf.canReserve ? "enabled" : "disabled";
-// checkout[0] = STATUS_MAP.shelf.canCheckout ? "enabled" : "disabled";
-// checkin[0] = STATUS_MAP.shelf.canCheckIn ? "enabled" : "disabled";
-
-// // reserve.1 = STATUS_MAP.status.canReserver ? 'enabled' : 'disabled'
-// // checkout.1 = STATUS_MAP.status.canCheckout ? 'enabled' : 'disabled'
-// // checkin.1 = STATUS_MAP.status.canCheckIn ? 'enabled' : 'disabled'
-
-// reserve.2 = STATUS_MAP.status.canReserver ? 'enabled' : 'disabled'
-// checkout.2 = STATUS_MAP.status.canCheckout ? 'enabled' : 'disabled'
-// checkin.2 = STATUS_MAP.status.canCheckIn ? 'enabled' : 'disabled'
+checkIn[2].style.color = "black";
+status_[2].style.color = STATUS_MAP.shelf.color;
+reserve[2].disabled = STATUS_MAP.shelf.canReserve ? false : true;
+checkOut[2].disabled = STATUS_MAP.shelf.canCheckout ? false : true;
+checkIn[2].disabled = STATUS_MAP.shelf.canCheckIn ? false : true;
