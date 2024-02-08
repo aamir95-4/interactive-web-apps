@@ -6,8 +6,6 @@ const number = document.querySelector('[data-key="number"]');
 const add = document.querySelector('[data-key="add"]');
 const subtract = document.querySelector('[data-key="subtract"]');
 
-console.log(number);
-
 const subtractHandler = () => {
   const newValue = parseInt(number.value) - STEP_AMOUNT;
   number.value = newValue;

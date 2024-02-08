@@ -21,6 +21,6 @@ if (
   console.log(balance.toFixed(2));
 }
 
-// 1. Says only to change below the line but had to add "" to the 00
-// 2. changed console.log to 'toFixed(2)' and moved into the if statement
+// 1. Had to add "" to the 00
+// 2. Changed console.log to 'toFixed(2)' and moved into the if statement, was not working when out of if statement
 // 3. added 'parseInt' to 'tax' to coerce to int

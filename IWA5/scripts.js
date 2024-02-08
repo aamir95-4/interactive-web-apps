@@ -1,26 +1,34 @@
-FREE_WARNING = "Free shipping only applies to single customer orders";
-BANNED_WARNIN = "Unfortunately we do not ship to your country of residence";
-NONE_SELECTED = 0;
+// Global constants
+const FREE_WARNING = "Free shipping only applies to single customer orders";
+const BANNED_WARNIN =
+  "Unfortunately we do not ship to your country of residence";
+const NONE_SELECTED = 0;
 
+// Establish variables
 let customers = 1;
 let country = "RSA";
+// Defaul currency set to $ as only RSA will change
 let currency = "$";
 let shipping;
 let basket;
 
+// Shipping charge and currency for customer in RSA
 if (country === "RSA") {
   shipping = 400;
   currency = "R";
 }
 
+// Shipping charge for customer in NAM
 if (country === "NAM") {
   shipping = 600;
 }
 
+// Shipping charge for country besides RSA or NAM
 if (country !== "RSA" && country !== "NAM") {
   shipping = 800;
 }
 
+// Basket total
 shoes = 300 * 1;
 toys = 100 * 5;
 shirts = 150 * NONE_SELECTED;
@@ -29,15 +37,18 @@ pens = 5 * NONE_SELECTED;
 
 basket = shoes + toys + shirts + batteries + pens;
 
+// Free shipping over order value
 if (basket > 1000 && (country === "RSA" || country === "NAM")) {
   shipping = 0;
 }
 
+// Show warning if there is more than one customer
 if (shipping === 0 && customers !== 1) {
   console.log(FREE_WARNING);
 }
 
-location === "NK"
+// Warning for banned country
+country === "NK"
   ? console.log(BANNED_WARNIN)
   : console.log("price", currency, basket + shipping);
 
@@ -48,6 +59,7 @@ location === "NK"
 //   4. Not sure what "calcShipping" is, there was no variable declared
 //   5. Moved variables to top and added "let"
 
+// Original code
 // FREE_WARNING = 'Free shipping only applies to single customer orders'
 // BANNED_WARNIN = 'Unfortunately we do not ship to your country of residence'
 // NONE_SELECTED = '0'

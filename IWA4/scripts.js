@@ -1,5 +1,5 @@
 let date = 2050;
-let status = "student";
+let status_ = "student";
 let count = 0;
 
 if ((date = 2050)) {
@@ -7,24 +7,25 @@ if ((date = 2050)) {
   console.log("March", "Human Rights Day");
   console.log(date, "Family Day");
   console.log(date, "Freedom Day");
+  count += 4;
+
+  if (status_ === "student") {
+    console.log("June", "Youth Day");
+    count++;
+  }
   console.log("August", "Women’s Day");
   console.log("September", "Heritage Day");
   console.log(date, "Day of Reconciliation");
   console.log(date, "Day of Goodwill");
-  count = count + 8;
+  count += 4;
 
-  if (status === "student") {
-    console.log("June", "Youth Day");
-    count = count + 1;
-  }
-
-  if (status === "parent") {
+  if (status_ === "parent") {
     console.log(date, "Christmas Day");
-    count = count + 1;
+    count++;
   }
 }
 
-console.log("Your status is:", status);
+console.log("Your status is:", status_);
 console.log("The year is:", date);
 console.log("The total holidays is:", count);
 
