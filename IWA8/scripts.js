@@ -13,16 +13,23 @@ const sarahPostal = "0310";
 
 // Only change below this line
 
+/* 
+|* 
+*/
 const leo = {
   name: leoName,
   balance: leoBalance,
   "access id": "47afb389-8014-4d0b-aff3-e40203d2107f",
   age: 24,
-  address: { number: leoNumber, street: leoStreet, "postal code": leoPostal },
+  address: {
+    number: leoNumber,
+    street: leoStreet,
+    "postal code": leoPostal,
+  },
 };
 
 const sarah = {
-  name: sarahName + sarahSurname,
+  name: sarahName.trim() + " " + sarahSurname,
   age: 62,
   "access id": "6b279ae5-5657-4240-80e9-23f6b635f7a8",
   balance: sarahBalance,

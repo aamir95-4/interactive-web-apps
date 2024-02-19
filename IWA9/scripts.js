@@ -38,4 +38,5 @@ console.log(balance.toFixed(2));
 |* 3. Changed the structure of the rent object to create objects with their own
 |*    properties, changed the type formula to look for the correct type and size
 |*    of accommodation in the rent object 
-|* 4. Added startingAfterTax to the beginning of the formula to deduct expenses off the salary after tax*/
+|* 4. Added startingAfterTax to the beginning of the formula to deduct expenses off the salary after tax
+*/
