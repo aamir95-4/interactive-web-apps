@@ -89,7 +89,7 @@ const MONTHS = [
   
     list.innerHTML = /* html */ `
       <dt>Athlete</dt>
-      <dd>${firstName surname}</dd>
+      <dd>${firstName surname} </dd>
   
       <dt>Total Races</dt>
       <dd>${races}</dd>

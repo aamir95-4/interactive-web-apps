@@ -19,18 +19,21 @@ const tax = {
 
 const rent = {
   none: 0,
-  room: { small: 200, large: 300 },
-  apartment: { small: 400, large: 800 },
-  house: { small: 1200, large: 2400 },
+  "small-room": 200,
+  "large-room": 300,
+  "small-apartment": 400,
+  "large-apartment": 800,
+  "small-house": 1200,
+  "large-house": 2400,
 };
 
 // You can change below however you want
 
 const taxAsDecimal = parseInt(tax["913"]) / 100;
 const startingAfterTax = salary - taxAsDecimal * salary;
-const type = rent[lodging][size];
+const type = `${size}-${lodging}`;
 const balance =
-  startingAfterTax - expenses["transport"] - expenses["food"] - type;
+  startingAfterTax - expenses["transport"] - expenses["food"] - rent[type];
 console.log(balance.toFixed(2));
 
 /* 1. Added ParseInt to get tax as a number not a string

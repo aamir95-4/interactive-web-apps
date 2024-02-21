@@ -61,8 +61,8 @@ console.log(
 
 copied = holidays[6];
 copied.name = "X-mas Day";
-correctDate = new Date(`25 December ${currentYear} 00:00`);
-isEarlier = correctDate < holidays[6].date;
+const correctDate = new Date(`25 December ${currentYear} 00:00`);
+const isEarlier = correctDate < holidays[6].date;
 console.log("New date is earlier:", isEarlier);
 if (isEarlier) copied.date = correctDate;
 console.log("ID change:", holidays[6].id != copied.id ? true : false);

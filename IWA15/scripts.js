@@ -15,10 +15,13 @@ const third = data.lists[2][1] || {};
 const result = [];
 
 const extractBiggest = () => {
-  if (first[first.length - 1] > second[second.length - 1]) {
+  if (
+    first[first.length - 1] > second[second.length - 1] &&
+    first[first.length - 1] > third[third.length - 1]
+  ) {
     return first.pop();
   }
-  if (third[0] > 1) {
+  if (second[second.length - 1] > third[third.length - 1]) {
     return second.pop();
   }
   return third.pop();
@@ -45,3 +48,34 @@ result.push(extractBiggest());
 result.push(extractBiggest());
 
 console.log(result);
+
+// Example from Riko
+
+// const {
+// 	lists: [
+// 		[, first],
+// 		[, second],
+// 		[, third],
+// 	]
+// } = data
+
+// const result = []
+
+// const extractBiggest = () => {
+//   const firstLast = first.at(-1)
+// 	const secondLast = second.at(-1)
+// 	const thirdLast = third.at(-1)
+
+// 	if (firstLast > secondLast && firstLast > thirdLast) {
+// 		first.pop()
+// 		return firstLast
+// 	}
+
+// 	if (secondLast > thirdLast) {
+// 		second.pop()
+// 		return secondLast
+// 	}
+
+// 	third.pop()
+// 	return thirdLast
+// }
