@@ -49,3 +49,20 @@ status_[2].style.color = STATUS_MAP.shelf.color;
 reserve[2].disabled = STATUS_MAP.shelf.canReserve ? false : true;
 checkOut[2].disabled = STATUS_MAP.shelf.canCheckout ? false : true;
 checkIn[2].disabled = STATUS_MAP.shelf.canCheckIn ? false : true;
+
+// From Riko (Check code)
+//  const books = [
+//   {
+//     status: document.querySelector('#book1 .status').innerText,
+//     html: {
+//         status: document.querySelector('#book1 .status'),
+//         reserve: document.querySelector('#book1 .reserve'),
+//         checkout: document.querySelector('#book1 .checkout'),
+//         checkin: document.querySelector('#book1 .checkin'),
+//     },
+// },
+// books[0].html.checkin.style.color = ''
+// books[0].html.status.style.color = STATUS_MAP[books[0].status].color
+// books[0].html.reserve.disabled = !STATUS_MAP[books[0].status].canReserve
+// books[0].html.checkout.disabled = !STATUS_MAP[books[0].status].canCheckout
+// books[0].html.checkin.disabled = !STATUS_MAP[books[0].status].canCheckIn

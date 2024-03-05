@@ -10,3 +10,5 @@ const logTwice = () => {
 };
 
 logTwice();
+
+// function - log hobby (replace parameter const)
