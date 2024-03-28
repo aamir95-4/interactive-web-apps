@@ -1,5 +1,16 @@
-import { createOrderData } from "./data.js";
-import { createOrderHtml, html, moveToColumn } from "./view.js";
+import {
+  updateDragging,
+  createOrderData,
+  state,
+  COLUMNS,
+  TABLES,
+} from "./data.js";
+import {
+  createOrderHtml,
+  html,
+  moveToColumn,
+  updateDraggingHtml,
+} from "./view.js";
 
 /**
  * A handler that fires when a user drags over any element inside a column. In
@@ -35,10 +46,16 @@ const handleDragEnd = (event) => {};
 
 // Handler to open help overlay when the ? is clicked
 const handleHelpToggle = (event) => {
-  html.help.overlay.toggleAttribute("open");
-  if (!html.help.overlay.hasAttribute("open")) {
-    html.other.add.focus(); // return focus to add order button
+  const { target } = event;
+  const isCancel = target === html.help.cancel;
+
+  if (isCancel) {
+    html.help.overlay.open = false;
+  } else {
+    html.help.overlay.open = true;
   }
+
+  html.other.add.focus();
 };
 
 /**
@@ -47,9 +64,14 @@ const handleHelpToggle = (event) => {
  * @param {event} event
  */
 const handleAddToggle = (event) => {
-  html.add.overlay.toggleAttribute("open");
-  if (!html.add.overlay.hasAttribute("open")) {
-    html.other.add.focus(); // The page should pre-select the add order button when static so that space/enter selects add order
+  const { target } = event;
+  const isAddButton = target === html.other.add;
+
+  if (isAddButton) {
+    html.add.overlay.open = true;
+  } else {
+    html.add.overlay.open = false;
+    html.add.form.reset();
   }
 };
 
@@ -68,20 +90,36 @@ const handleAddSubmit = (event) => {
   html.add.overlay.removeAttribute("open"); // Close the add overlay
   html.add.title.value = ""; // Clear input fields
   html.add.table.value = ""; // Clear input fields
-  console.log(orderElement);
 };
+
 /**
  * Once the order is submitted and then clicked, the edit order overlay
- * should pop up
+ * should pop up and populate with the order data.
  */
 const handleEditToggle = (event) => {
-  html.edit.overlay.toggleAttribute("open");
-  html.edit.id.value = orderId;
-  html.edit.title.value = order.title;
-  html.edit.table.value = order.table;
+  const { target } = event;
+  const isCancel = target === html.edit.cancel;
+  if (isCancel) {
+    html.edit.overlay.removeAttribute("open");
+  } else {
+    html.edit.overlay.open = true;
+  }
 };
+
 const handleEditSubmit = (event) => {
-  event.preventDefault();
+  //   event.preventDefault();
+  //   const formData = new FormData(html.edit.form);
+  //   const orderData = Object.fromEntries(formData.entries());
+  //   const { id } = html.edit.form.dataset;
+  //   const column = html.columns[orderData.column];
+  //   const orderElement = column.querySelector(`[data-id="${id}"]`);
+  //   if (orderElement) {
+  //     orderElement.querySelector("[data-order-title]").textContent =
+  //       orderData.title;
+  //     orderElement.querySelector("[data-order-table]").textContent =
+  //       orderData.table;
+  //   }
+  //   html.edit.overlay.removeAttribute("open");
 };
 
 const handleDelete = (event) => {};
