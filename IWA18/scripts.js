@@ -12,6 +12,8 @@ import {
   updateDraggingHtml,
 } from "./view.js";
 
+const { add, other, edit, help, columns } = html;
+
 /**
  * A handler that fires when a user drags over any element inside a column. In
  * order to determine which column the user is dragging over the entire event
@@ -42,6 +44,7 @@ const handleDragOver = (event) => {
 };
 
 const handleDragStart = (event) => {};
+
 const handleDragEnd = (event) => {};
 
 // Handler to open help overlay when the ? is clicked
@@ -80,16 +83,27 @@ const handleAddToggle = (event) => {
  * Once the button is clicked the information for the order should be shown
  * in the ordered column
  */
+
 const handleAddSubmit = (event) => {
   event.preventDefault();
-  const formData = new FormData(html.add.form);
-  const orderData = Object.fromEntries(formData.entries());
-  const newOrder = createOrderData(orderData); // Create order object using form data
-  const orderElement = createOrderHtml(newOrder); // Create HTML element for the new order
-  html.columns.ordered.appendChild(orderElement); // Add the new order to the "Ordered" column
-  html.add.overlay.removeAttribute("open"); // Close the add overlay
-  html.add.title.value = ""; // Clear input fields
-  html.add.table.value = ""; // Clear input fields
+  const { form, overlay, title, table } = add;
+
+  const orderData = createOrderData({
+    title: title.value,
+    table: table.value,
+    column: COLUMNS[0],
+  });
+  // add the order to state
+  state.orders[orderData.id] = orderData;
+
+  // Generate order HTML
+  const orderHtml = createOrderHtml(orderData);
+  columns[COLUMNS[0]].appendChild(orderHtml);
+
+  // Reset form and close overlay
+  form.reset();
+  overlay.open = false;
+  other.add.focus();
 };
 
 /**
@@ -98,38 +112,82 @@ const handleAddSubmit = (event) => {
  */
 const handleEditToggle = (event) => {
   const { target } = event;
-  const isCancel = target === html.edit.cancel;
-  if (isCancel) {
-    html.edit.overlay.removeAttribute("open");
+  const { overlay, title, table, column } = edit;
+  const isOrder = target.className === "order";
+
+  if (isOrder) {
+    const { id } = target.dataset;
+    const orderFromState = state.orders[id];
+
+    overlay.open = true;
+    title.value = orderFromState.title;
+    table.value = orderFromState.table;
+    column.value = orderFromState.column;
+    edit.id.value = orderFromState.id;
   } else {
-    html.edit.overlay.open = true;
+    overlay.open = false;
+    other.add.focus();
   }
 };
-
 const handleEditSubmit = (event) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(html.edit.form);
-  //   const orderData = Object.fromEntries(formData.entries());
-  //   const { id } = html.edit.form.dataset;
-  //   const column = html.columns[orderData.column];
-  //   const orderElement = column.querySelector(`[data-id="${id}"]`);
-  //   if (orderElement) {
-  //     orderElement.querySelector("[data-order-title]").textContent =
-  //       orderData.title;
-  //     orderElement.querySelector("[data-order-table]").textContent =
-  //       orderData.table;
-  //   }
-  //   html.edit.overlay.removeAttribute("open");
+  event.preventDefault();
+
+  // Retrieve form elements
+  const { form, overlay, title, table, column, id } = edit;
+
+  // Get the order ID from the form
+  const orderId = id.value;
+
+  // Retrieve the order from the state using its ID
+  const orderToUpdate = state.orders[orderId];
+
+  // Update order data with the new values from the form
+  orderToUpdate.title = title.value;
+  orderToUpdate.table = table.value;
+  orderToUpdate.column = column.value;
+
+  // Generate updated order HTML
+  const updatedOrderHtml = createOrderHtml(orderToUpdate);
+
+  // Find the existing order HTML in the DOM using its ID
+  const existingOrderHtml = document.querySelector(`[data-id="${orderId}"]`);
+
+  // Replace existing order HTML with the updated one
+  existingOrderHtml.replaceWith(updatedOrderHtml);
+
+  // Close the edit overlay
+  overlay.open = false;
+
+  // Optionally, you might want to reset the form
+  form.reset();
 };
 
-const handleDelete = (event) => {};
+const handleDelete = (event) => {
+  const { target } = event;
+  const isDeleteButton = target === html.edit.delete;
+
+  if (isDeleteButton) {
+    // Retrieve the order ID from the edit form
+    const orderId = edit.id.value;
+
+    // Remove the order from the state
+    delete state.orders[orderId];
+
+    // Remove the order from the DOM
+    const orderToDelete = document.querySelector(`[data-id="${orderId}"]`);
+    orderToDelete.remove();
+
+    // Close the edit overlay
+    edit.overlay.open = false;
+  }
+};
 
 html.add.cancel.addEventListener("click", handleAddToggle);
 html.other.add.addEventListener("click", handleAddToggle);
 html.add.form.addEventListener("submit", handleAddSubmit);
 
-html.other.grid.addEventListener("click", handleEditToggle);
-html.edit.cancel.addEventListener("click", handleEditToggle);
+other.grid.addEventListener("click", handleEditToggle);
+edit.cancel.addEventListener("click", handleEditToggle);
 html.edit.form.addEventListener("submit", handleEditSubmit);
 html.edit.delete.addEventListener("click", handleDelete);
 
