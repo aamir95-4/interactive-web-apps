@@ -43,9 +43,24 @@ const handleDragOver = (event) => {
   updateDraggingHtml({ over: column });
 };
 
-const handleDragStart = (event) => {};
+const handleDragStart = (event) => {
+  state.dragging.source = event.target;
+};
 
-const handleDragEnd = (event) => {};
+const handleDragEnd = (event) => {
+  const { id } = state.dragging.source.dataset;
+  const { over } = state.dragging;
+  const order = state.orders[id];
+
+  // update state of order
+  order.column = over;
+
+  // move order to the relevant column
+  moveToColumn(id, over);
+
+  updateDragging({ over: null });
+  updateDraggingHtml({ over: null });
+};
 
 // Handler to open help overlay when the ? is clicked
 const handleHelpToggle = (event) => {
